@@ -1,0 +1,7 @@
+.panel { background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; position: sticky; top: 16px; }
+header { display: flex; justify-content: space-between; align-items: start; gap: 8px; }
+h2 { margin: 0; font-size: 1.15rem; }
+header button { background: none; border: none; font-size: 1.1rem; color: #6b7280; }
+dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; margin: 16px 0 0; }
+dt { color: #6b7280; }
+dd { margin: 0; }

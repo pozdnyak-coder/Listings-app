@@ -1,0 +1,24 @@
+# /etc/systemd/system/listings.service
+#
+# Замените:
+#   SITEUSER      — пользователь вашего сайта в ispmanager (например user1)
+#   /var/www/SITEUSER/data/listings-app — папка, куда распакован архив
+#   CHANGE_ME...  — длинный случайный ключ для POST/PUT/DELETE (см. README)
+
+[Unit]
+Description=Listings app (ASP.NET Core + Angular)
+After=network.target
+
+[Service]
+User=SITEUSER
+WorkingDirectory=/var/www/SITEUSER/data/listings-app
+ExecStart=/var/www/SITEUSER/data/listings-app/ListingsApi
+Restart=always
+RestartSec=5
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=ASPNETCORE_URLS=http://127.0.0.1:5000
+Environment=Admin__ApiKey=CHANGE_ME_LONG_RANDOM_KEY
+# Environment=Swagger__Enabled=true
+
+[Install]
+WantedBy=multi-user.target

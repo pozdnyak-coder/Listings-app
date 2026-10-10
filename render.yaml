@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: listings-app
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/districts
+    envVars:
+      # Render сам сгенерирует случайный ключ; посмотреть его: Environment в панели сервиса
+      - key: Admin__ApiKey
+        generateValue: true

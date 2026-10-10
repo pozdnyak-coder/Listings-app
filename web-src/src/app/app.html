@@ -1,0 +1,24 @@
+<main class="container">
+  <h1>Объявления</h1>
+
+  @if (loading()) {
+    <p class="muted">Загрузка… (если сайт давно не открывали, бесплатный хостинг «просыпается» до минуты)</p>
+  } @else if (error()) {
+    <p class="error">{{ error() }}</p>
+    <button type="button" (click)="load()">Повторить</button>
+  } @else {
+    <app-listing-filter [districts]="districts()" (filterChange)="onFilter($event)" />
+
+    <div class="layout" [class.with-panel]="selectedListing() !== null">
+      <app-listing-list
+        [listings]="filtered()"
+        [total]="listings().length"
+        [selectedId]="selectedId()"
+        (selected)="onSelect($event)" />
+
+      @if (selectedListing(); as item) {
+        <app-listing-details [listing]="item" (closed)="selectedId.set(null)" />
+      }
+    </div>
+  }
+</main>

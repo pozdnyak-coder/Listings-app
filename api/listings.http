@@ -1,0 +1,59 @@
+# Расширение REST Client (VS Code). Если задан Admin:ApiKey — впишите его ниже.
+@host = http://localhost:5000
+@key =
+
+### Районы
+GET {{host}}/api/districts
+
+### Список
+GET {{host}}/api/listings
+
+### Фильтр по району (id) и цене
+GET {{host}}/api/listings?districtId=1&maxPrice=50000
+
+### Количество
+GET {{host}}/api/listings/count
+
+### Одно объявление
+GET {{host}}/api/listings/1
+
+### Несуществующее — ожидаем 404
+GET {{host}}/api/listings/999
+
+### Создать — ожидаем 201 и заголовок Location
+POST {{host}}/api/listings
+Content-Type: application/json
+X-Admin-Key: {{key}}
+
+{
+  "title": "3-комн. в Юнусабаде",
+  "price": 62000,
+  "rooms": 3,
+  "districtId": 2,
+  "address": "Юнусабад, 7 кв."
+}
+
+### Ошибка валидации — ожидаем 400
+POST {{host}}/api/listings
+Content-Type: application/json
+X-Admin-Key: {{key}}
+
+{ "title": "", "price": -5, "rooms": 2, "districtId": 1 }
+
+### Несуществующий район — ожидаем 400
+POST {{host}}/api/listings
+Content-Type: application/json
+X-Admin-Key: {{key}}
+
+{ "title": "Тест", "price": 1000, "rooms": 1, "districtId": 99 }
+
+### Заменить — ожидаем 204
+PUT {{host}}/api/listings/1
+Content-Type: application/json
+X-Admin-Key: {{key}}
+
+{ "title": "2-комн. рядом с метро (цена снижена)", "price": 45000, "rooms": 2, "districtId": 1, "address": "Чиланзар, д. 4" }
+
+### Удалить — ожидаем 204, повторно — 404
+DELETE {{host}}/api/listings/3
+X-Admin-Key: {{key}}

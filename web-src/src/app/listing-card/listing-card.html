@@ -1,0 +1,24 @@
+<article class="card" [class.active]="active()" (click)="choose()">
+  <header>
+    <h3>{{ listing().title }}</h3>
+    <span class="badges">
+      @if (isNew()) {
+        <span class="badge new">новое</span>
+      }
+      @if (isCheap()) {
+        <span class="badge">выгодно</span>
+      }
+    </span>
+  </header>
+
+  <p class="muted">{{ listing().districtName }} · {{ roomsLabel() }}</p>
+
+  <p class="price">{{ listing().price | number:'1.0-0' }} у.е.</p>
+
+  <footer class="muted">
+    <time [attr.datetime]="listing().createdAt">
+      {{ listing().createdAt | date:'d MMM yyyy' }}
+    </time>
+    <button type="button" (click)="choose(); $event.stopPropagation()">Подробнее</button>
+  </footer>
+</article>
